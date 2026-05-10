@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Store | Giveaway Verification</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;600;700&family=Moul&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        :root {
+            --bg-color: #e0e5ec;
+            --text-color: #31344b;
+            --main-accent: #0088cc;
+            --shadow-raised: 6px 6px 12px #a3b1c6, -6px -6px 12px #ffffff;
+            --shadow-pressed: inset 4px 4px 8px #a3b1c6, inset -4px -4px 8px #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Kantumruy Pro', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-color); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+
+        .container { width: 100%; max-width: 450px; }
+        .card { background-color: var(--bg-color); border-radius: 30px; padding: 30px; box-shadow: var(--shadow-raised); text-align: center; }
+
+        h2 { font-family: 'Moul', serif; color: var(--main-accent); font-size: 20px; margin-bottom: 10px; }
+        p { font-size: 14px; opacity: 0.8; margin-bottom: 20px; }
+
+        .btn-link { 
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 15px; border-radius: 15px; background: var(--bg-color); 
+            box-shadow: var(--shadow-raised); text-decoration: none; color: var(--text-color); 
+            font-weight: bold; margin-bottom: 15px; transition: 0.3s;
+        }
+        .btn-link:active { box-shadow: var(--shadow-pressed); }
+        .btn-link i { color: #0088cc; font-size: 20px; }
+
+        input { 
+            width: 100%; padding: 15px; border-radius: 15px; border: none; 
+            background: var(--bg-color); box-shadow: var(--shadow-pressed); 
+            outline: none; margin-bottom: 20px; font-size: 16px; text-align: center;
+        }
+
+        .btn-verify { 
+            width: 100%; padding: 15px; border-radius: 15px; border: none; 
+            background: var(--main-accent); color: white; font-weight: bold; 
+            font-size: 16px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,136,204,0.3);
+            transition: 0.3s;
+        }
+        .btn-verify:hover { transform: translateY(-2px); opacity: 0.9; }
+
+        /* Hidden Section */
+        #step2 { display: none; }
+        
+        .success-icon { font-size: 50px; color: #2ecc71; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card" id="step1">
+        <h2>Select Store</h2>
+        <p>សូមចុច Join Channel ទាំង ២ ជាមុនសិន</p>
+        
+        <a href="https://t.me/Select_Store1" target="_blank" class="btn-link">
+            <i class="fab fa-telegram"></i> Join Channel 1
+        </a>
+        <a href="https://t.me/Select_Store2" target="_blank" class="btn-link">
+            <i class="fab fa-telegram"></i> Join Channel 2
+        </a>
+
+        <div style="margin-top: 20px;">
+            <input type="number" id="userId" placeholder="លេខសម្គាល់ ID (ឧទាហរណ៍ 12345)">
+            <button class="btn-verify" onclick="checkJoin()">ផ្ទៀងផ្ទាត់ការ Join</button>
+        </div>
+    </div>
+
+    <div class="card" id="step2">
+        <i class="fas fa-check-circle success-icon"></i>
+        <h2>ចូលរួម Giveaway</h2>
+        <p>សូមបំពេញ Username របស់អ្នកដើម្បីចុះឈ្មោះ</p>
+        
+        <input type="text" id="username" placeholder="@username">
+        <button class="btn-verify" style="background: #2ecc71;" onclick="submitData()">បញ្ជូនទិន្នន័យ</button>
+    </div>
+</div>
+
+<script>
+    const BOT_TOKEN = "8212122943:AAFOREIno5CXRklS_X9Kiwz6iAput2zExtI";
+    const CHANNEL_IDS = ["-1002259615654", "-1001844015273"];
+    const ADMIN_GROUP = "-1003849367168";
+    let confirmedID = "";
+
+    async function checkJoin() {
+        const id = document.getElementById('userId').value;
+        if(!id) return Swal.fire('សូមបញ្ចូល ID!', '', 'warning');
+
+        Swal.fire({ title: 'កំពុងឆែក...', didOpen: () => Swal.showLoading() });
+
+        let isAllJoined = true;
+
+        for(let chat of CHANNEL_IDS) {
+            try {
+                const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getChatMember?chat_id=${chat}&user_id=${id}`);
+                const data = await res.json();
+                const status = data.result?.status;
+                if(!data.ok || !(status === 'member' || status === 'administrator' || status === 'creator')) {
+                    isAllJoined = false;
+                    break;
+                }
+            } catch (err) { isAllJoined = false; }
+        }
+
+        Swal.close();
+
+        if(isAllJoined) {
+            confirmedID = id;
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'block';
+        } else {
+            Swal.fire('បរាជ័យ!', 'អ្នកមិនទាន់បាន Join Channel ឱ្យគ្រប់នៅឡើយទេ!', 'error');
+        }
+    }
+
+    async function submitData() {
+        const user = document.getElementById('username').value;
+        if(!user) return Swal.fire('សូមបញ្ចូល Username!', '', 'warning');
+
+        const msg = `🎁 អ្នកចូលរួម Giveaway ថ្មី\n\n🆔 ID: ${confirmedID}\n👤 Username: ${user}\n✅ ស្ថានភាព: បាន Join គ្រប់ Channel`;
+
+        try {
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${ADMIN_GROUP}&text=${encodeURIComponent(msg)}`);
+            Swal.fire('ជោគជ័យ!', 'ទិន្នន័យត្រូវបានរក្សាទុក!', 'success').then(() => {
+                location.reload(); 
+            });
+        } catch (err) {
+            Swal.fire('Error', 'មានបញ្ហាក្នុងការផ្ញើទិន្នន័យ!', 'error');
+        }
+    }
+</script>
+
+</body>
+</html>
+
