@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select Store | Giveaway Verification</title>
+    <title>Select Store | Mini App Giveaway</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;600;700&family=Moul&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -18,41 +19,40 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Kantumruy Pro', sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-color); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        body { background-color: var(--bg-color); color: var(--text-color); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
 
         .container { width: 100%; max-width: 450px; }
         .card { background-color: var(--bg-color); border-radius: 30px; padding: 30px; box-shadow: var(--shadow-raised); text-align: center; }
 
-        h2 { font-family: 'Moul', serif; color: var(--main-accent); font-size: 20px; margin-bottom: 10px; }
-        p { font-size: 14px; opacity: 0.8; margin-bottom: 20px; }
+        h2 { font-family: 'Moul', serif; color: var(--main-accent); font-size: 18px; margin-bottom: 15px; letter-spacing: 1px; }
+        p { font-size: 14px; opacity: 0.8; margin-bottom: 20px; line-height: 1.6; }
 
+        .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px; }
         .btn-link { 
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            padding: 15px; border-radius: 15px; background: var(--bg-color); 
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 12px; border-radius: 15px; background: var(--bg-color); 
             box-shadow: var(--shadow-raised); text-decoration: none; color: var(--text-color); 
-            font-weight: bold; margin-bottom: 15px; transition: 0.3s;
+            font-weight: bold; font-size: 12px; transition: 0.2s;
         }
-        .btn-link:active { box-shadow: var(--shadow-pressed); }
-        .btn-link i { color: #0088cc; font-size: 20px; }
+        .btn-link:active { box-shadow: var(--shadow-pressed); transform: scale(0.98); }
+        .btn-link i { color: #0088cc; font-size: 16px; }
 
-        input { 
-            width: 100%; padding: 15px; border-radius: 15px; border: none; 
-            background: var(--bg-color); box-shadow: var(--shadow-pressed); 
-            outline: none; margin-bottom: 20px; font-size: 16px; text-align: center;
-        }
-
-        .btn-verify { 
-            width: 100%; padding: 15px; border-radius: 15px; border: none; 
+        .btn-main { 
+            width: 100%; padding: 16px; border-radius: 16px; border: none; 
             background: var(--main-accent); color: white; font-weight: bold; 
             font-size: 16px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,136,204,0.3);
-            transition: 0.3s;
+            transition: 0.3s; margin-top: 10px;
         }
-        .btn-verify:hover { transform: translateY(-2px); opacity: 0.9; }
+        .btn-main:active { transform: translateY(2px); }
 
-        /* Hidden Section */
-        #step2 { display: none; }
+        /* Sections */
+        #step2, #already-joined { display: none; }
         
-        .success-icon { font-size: 50px; color: #2ecc71; margin-bottom: 15px; }
+        .user-info { 
+            background: var(--bg-color); box-shadow: var(--shadow-pressed); 
+            padding: 15px; border-radius: 15px; margin-bottom: 20px; font-size: 14px;
+        }
+        .success-icon { font-size: 60px; color: #2ecc71; margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -60,85 +60,103 @@
 <div class="container">
     <div class="card" id="step1">
         <h2>Select Store</h2>
-        <p>សូមចុច Join Channel ទាំង ២ ជាមុនសិន</p>
+        <p>សូមចុច Join Channel ទាំង ៤ រួចចុចប៊ូតុង "ផ្ទៀងផ្ទាត់"</p>
         
-        <a href="https://t.me/Select_Store1" target="_blank" class="btn-link">
-            <i class="fab fa-telegram"></i> Join Channel 1
-        </a>
-        <a href="https://t.me/Select_Store2" target="_blank" class="btn-link">
-            <i class="fab fa-telegram"></i> Join Channel 2
-        </a>
-
-        <div style="margin-top: 20px;">
-            <input type="number" id="userId" placeholder="លេខសម្គាល់ ID (ឧទាហរណ៍ 12345)">
-            <button class="btn-verify" onclick="checkJoin()">ផ្ទៀងផ្ទាត់ការ Join</button>
+        <div class="channel-grid">
+            <a href="https://t.me/Select_Store1" target="_blank" class="btn-link"><i class="fab fa-telegram"></i> Channel 1</a>
+            <a href="https://t.me/Select_Store2" target="_blank" class="btn-link"><i class="fab fa-telegram"></i> Channel 2</a>
+            <a href="https://t.me/wlwmatcha" target="_blank" class="btn-link"><i class="fab fa-telegram"></i> Channel 3</a>
+            <a href="https://t.me/yuthsafe" target="_blank" class="btn-link"><i class="fab fa-telegram"></i> Channel 4</a>
         </div>
+
+        <button class="btn-main" onclick="verifyMembership()">ផ្ទៀងផ្ទាត់ការ Join</button>
     </div>
 
     <div class="card" id="step2">
-        <i class="fas fa-check-circle success-icon"></i>
-        <h2>ចូលរួម Giveaway</h2>
-        <p>សូមបំពេញ Username របស់អ្នកដើម្បីចុះឈ្មោះ</p>
+        <i class="fas fa-user-check success-icon"></i>
+        <h2>ផ្ទៀងផ្ទាត់ជាប់!</h2>
+        <p>ព័ត៌មានគណនីរបស់អ្នកដែលត្រូវចុះឈ្មោះ៖</p>
         
-        <input type="text" id="username" placeholder="@username">
-        <button class="btn-verify" style="background: #2ecc71;" onclick="submitData()">បញ្ជូនទិន្នន័យ</button>
+        <div class="user-info" id="display-user">
+            </div>
+
+        <button class="btn-main" style="background: #2ecc71; box-shadow: 0 5px 15px rgba(46,204,113,0.3);" onclick="finalSubmit()">ចុះឈ្មោះចូលរួម</button>
+    </div>
+
+    <div class="card" id="already-joined">
+        <i class="fas fa-shield-alt" style="font-size: 60px; color: #e74c3c; margin-bottom: 20px;"></i>
+        <h2>ចុះឈ្មោះរួចហើយ!</h2>
+        <p>គណនីរបស់អ្នកបានចូលរួម Giveaway រួចរាល់ហើយ។ មិនអាចចុះឈ្មោះលើសពី ១ ដងឡើយ។</p>
+        <button class="btn-main" onclick="tg.close()">ចាកចេញ</button>
     </div>
 </div>
 
 <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand(); 
+
     const BOT_TOKEN = "8212122943:AAFOREIno5CXRklS_X9Kiwz6iAput2zExtI";
-    const CHANNEL_IDS = ["-1002259615654", "-1001844015273"];
+    const CHANNELS = ["-1002259615654", "-1001844015273", "-1003895190674", "-1002549133921"];
     const ADMIN_GROUP = "-1003849367168";
-    let confirmedID = "";
 
-    async function checkJoin() {
-        const id = document.getElementById('userId').value;
-        if(!id) return Swal.fire('សូមបញ្ចូល ID!', '', 'warning');
+    // ឆែកមើលថាតើ ID នេះធ្លាប់ចុះឈ្មោះរួចហើយឬនៅ តាមរយៈ Cloud Storage របស់ Telegram
+    tg.CloudStorage.getItem('joined_status', (err, value) => {
+        if (value === 'done') {
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('already-joined').style.display = 'block';
+        }
+    });
 
-        Swal.fire({ title: 'កំពុងឆែក...', didOpen: () => Swal.showLoading() });
+    async function verifyMembership() {
+        const user = tg.initDataUnsafe.user;
+        if(!user) return Swal.fire('Error', 'មិនអាចទាញយកទិន្នន័យ Telegram បានទេ!', 'error');
 
-        let isAllJoined = true;
+        Swal.fire({ title: 'កំពុងពិនិត្យ...', didOpen: () => Swal.showLoading() });
 
-        for(let chat of CHANNEL_IDS) {
+        let allJoined = true;
+        for (let cid of CHANNELS) {
             try {
-                const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getChatMember?chat_id=${chat}&user_id=${id}`);
+                const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getChatMember?chat_id=${cid}&user_id=${user.id}`);
                 const data = await res.json();
-                const status = data.result?.status;
-                if(!data.ok || !(status === 'member' || status === 'administrator' || status === 'creator')) {
-                    isAllJoined = false;
+                if (!data.ok || !['member', 'administrator', 'creator'].includes(data.result.status)) {
+                    allJoined = false;
                     break;
                 }
-            } catch (err) { isAllJoined = false; }
+            } catch (e) { allJoined = false; }
         }
 
         Swal.close();
-
-        if(isAllJoined) {
-            confirmedID = id;
+        if (allJoined) {
             document.getElementById('step1').style.display = 'none';
             document.getElementById('step2').style.display = 'block';
+            document.getElementById('display-user').innerHTML = `
+                <b>ID:</b> ${user.id}<br>
+                <b>ឈ្មោះ:</b> ${user.first_name} ${user.last_name || ''}<br>
+                <b>Username:</b> @${user.username || 'N/A'}
+            `;
         } else {
-            Swal.fire('បរាជ័យ!', 'អ្នកមិនទាន់បាន Join Channel ឱ្យគ្រប់នៅឡើយទេ!', 'error');
+            Swal.fire('មិនអាចបន្តបាន', 'សូម Join ឱ្យគ្រប់ទាំង ៤ Channel សិន!', 'error');
         }
     }
 
-    async function submitData() {
-        const user = document.getElementById('username').value;
-        if(!user) return Swal.fire('សូមបញ្ចូល Username!', '', 'warning');
-
-        const msg = `🎁 អ្នកចូលរួម Giveaway ថ្មី\n\n🆔 ID: ${confirmedID}\n👤 Username: ${user}\n✅ ស្ថានភាព: បាន Join គ្រប់ Channel`;
+    async function finalSubmit() {
+        const user = tg.initDataUnsafe.user;
+        const message = `🔔 អ្នកចូលរួមថ្មី (Mini App)\n\n🆔 ID: ${user.id}\n👤 ឈ្មោះ: ${user.first_name} ${user.last_name || ''}\n🔗 Username: @${user.username || 'មិនមាន'}\n🛡️ ការពារស្ទួន: សកម្ម (Cloud Storage)`;
 
         try {
-            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${ADMIN_GROUP}&text=${encodeURIComponent(msg)}`);
-            Swal.fire('ជោគជ័យ!', 'ទិន្នន័យត្រូវបានរក្សាទុក!', 'success').then(() => {
-                location.reload(); 
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${ADMIN_GROUP}&text=${encodeURIComponent(message)}`);
+            
+            // រក្សាទុកស្ថានភាពក្នុង Cloud របស់ Telegram (ការពារការលុប Cache)
+            tg.CloudStorage.setItem('joined_status', 'done');
+
+            Swal.fire('ជោគជ័យ!', 'ការចុះឈ្មោះរបស់អ្នកទទួលបានសម្រេច!', 'success').then(() => {
+                tg.close(); 
             });
-        } catch (err) {
-            Swal.fire('Error', 'មានបញ្ហាក្នុងការផ្ញើទិន្នន័យ!', 'error');
+        } catch (e) {
+            Swal.fire('Error', 'មានបញ្ហាក្នុងការបញ្ជូនទិន្នន័យ!', 'error');
         }
     }
 </script>
-
 </body>
 </html>
 
