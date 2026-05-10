@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select Store | Mega Giveaway</title>
+    <title>Select Store | Giveaway $5 x 3</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;600;700&family=Moul&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -23,15 +23,16 @@
         body { background-color: var(--bg-color); color: var(--text-color); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
 
         .container { width: 100%; max-width: 450px; }
-        .card { background-color: var(--bg-color); border-radius: 30px; padding: 25px; box-shadow: var(--shadow-raised); text-align: center; border: 1px solid rgba(255,255,255,0.2); }
+        .card { background-color: var(--bg-color); border-radius: 30px; padding: 25px; box-shadow: var(--shadow-raised); text-align: center; }
 
         .prize-badge {
-            background: var(--gold); color: #000; padding: 10px; border-radius: 15px;
-            font-weight: bold; font-size: 18px; margin-bottom: 15px; display: inline-block;
-            box-shadow: 0 4px 10px rgba(241, 196, 15, 0.3);
+            background: var(--gold); color: #000; padding: 10px 20px; border-radius: 15px;
+            font-weight: 800; font-size: 18px; margin-bottom: 15px; display: inline-block;
+            box-shadow: 0 4px 10px rgba(241, 196, 15, 0.4);
+            border: 2px solid #fff;
         }
 
-        h2 { font-family: 'Moul', serif; color: var(--main-accent); font-size: 18px; margin-bottom: 5px; }
+        h2 { font-family: 'Moul', serif; color: var(--main-accent); font-size: 18px; margin-bottom: 5px; text-shadow: 1px 1px 0px white; }
         .subtitle { font-size: 13px; opacity: 0.7; margin-bottom: 20px; }
 
         .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
@@ -41,8 +42,8 @@
             box-shadow: var(--shadow-raised); text-decoration: none; color: var(--text-color); 
             font-weight: bold; font-size: 11px; transition: 0.2s;
         }
-        .btn-link i { color: #0088cc; }
-        .btn-link:active { box-shadow: var(--shadow-pressed); }
+        .btn-link i { color: #0088cc; font-size: 16px; }
+        .btn-link:active { box-shadow: var(--shadow-pressed); transform: scale(0.98); }
 
         .btn-main { 
             width: 100%; padding: 16px; border-radius: 18px; border: none; 
@@ -50,18 +51,20 @@
             font-size: 16px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,136,204,0.3);
             transition: 0.3s;
         }
+        .btn-main:hover { opacity: 0.9; }
 
         #step2, #already-joined { display: none; }
-        .user-info { background: var(--bg-color); box-shadow: var(--shadow-pressed); padding: 15px; border-radius: 15px; margin-bottom: 20px; font-size: 14px; text-align: left; }
+        .user-info { background: var(--bg-color); box-shadow: var(--shadow-pressed); padding: 15px; border-radius: 15px; margin-bottom: 20px; font-size: 14px; text-align: left; line-height: 1.8; }
+        .success-icon { font-size: 60px; color: #2ecc71; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="card" id="step1">
-        <div class="prize-badge"><i class="fas fa-gift"></i> Giveaway $5 x 3 នាក់</div>
+        <div class="prize-badge"><i class="fas fa-crown"></i> Giveaway $5 x 3 នាក់</div>
         <h2>Select Store</h2>
-        <p class="subtitle">សូម Join Channel ទាំង ៥ ដើម្បីមានឱកាសឈ្នះ</p>
+        <p class="subtitle">សូមចូលរួម Channel ទាំង ៥ ដើម្បីមានឱកាសឈ្នះ</p>
         
         <div class="channel-grid">
             <a href="https://t.me/Select_Store1" target="_blank" class="btn-link"><i class="fab fa-telegram"></i> Channel 1</a>
@@ -75,18 +78,19 @@
     </div>
 
     <div class="card" id="step2">
+        <i class="fas fa-check-circle success-icon"></i>
         <h2 style="color: #2ecc71;">ផ្ទៀងផ្ទាត់ជោគជ័យ!</h2>
-        <p class="subtitle">ពិនិត្យព័ត៌មានរបស់អ្នកមុននឹងបញ្ជូន</p>
+        <p class="subtitle">សូមពិនិត្យព័ត៌មានរបស់អ្នកមុននឹងបញ្ជូន</p>
         
         <div class="user-info" id="display-user"></div>
 
-        <button class="btn-main" style="background: #2ecc71;" onclick="finalSubmit()">បញ្ជាក់ការចូលរួម</button>
+        <button class="btn-main" style="background: #2ecc71; box-shadow: 0 5px 15px rgba(46,204,113,0.3);" onclick="finalSubmit()">បញ្ជាក់ការចូលរួម</button>
     </div>
 
     <div class="card" id="already-joined">
-        <i class="fas fa-check-circle" style="font-size: 60px; color: #2ecc71; margin-bottom: 20px;"></i>
-        <h2>អ្នកបានចូលរួមរួចហើយ!</h2>
-        <p class="subtitle">សូមរង់ចាំការប្រកាសលទ្ធផលក្នុង Channel។</p>
+        <i class="fas fa-user-shield" style="font-size: 60px; color: #e74c3c; margin-bottom: 20px;"></i>
+        <h2>បានចុះឈ្មោះរួចហើយ!</h2>
+        <p class="subtitle">គណនីរបស់អ្នកបានចូលរួមរួចរាល់ហើយ។ <br>សូមរង់ចាំការប្រកាសលទ្ធផលក្នុង Channel។</p>
         <button class="btn-main" onclick="tg.close()">ចាកចេញ</button>
     </div>
 </div>
@@ -96,11 +100,11 @@
     tg.expand(); 
 
     const BOT_TOKEN = "8212122943:AAFOREIno5CXRklS_X9Kiwz6iAput2zExtI";
-    // បញ្ជី ID Channel ទាំង ៥
     const CHANNELS = ["-1002259615654", "-1001844015273", "-1003895190674", "-1002549133921", "-1003652130893"];
     const ADMIN_GROUP = "-1003849367168";
 
-    tg.CloudStorage.getItem('giveaway_2024_status', (err, value) => {
+    // ឆែកមើល Cloud Storage ការពារការលេងស្ទួន
+    tg.CloudStorage.getItem('giveaway_final_v1', (err, value) => {
         if (value === 'joined') {
             document.getElementById('step1').style.display = 'none';
             document.getElementById('already-joined').style.display = 'block';
@@ -109,9 +113,9 @@
 
     async function verifyMembership() {
         const user = tg.initDataUnsafe.user;
-        if(!user) return Swal.fire('បញ្ជាក់', 'សូមបើកកម្មវិធីនេះក្នុង Telegram!', 'error');
+        if(!user) return Swal.fire('Error', 'សូមបើកក្នុង Telegram Mini App!', 'error');
 
-        Swal.fire({ title: 'កំពុងពិនិត្យ...', didOpen: () => Swal.showLoading() });
+        Swal.fire({ title: 'កំពុងពិនិត្យ Member...', didOpen: () => Swal.showLoading() });
 
         let allJoined = true;
         for (let cid of CHANNELS) {
@@ -135,25 +139,27 @@
                 <b>🔗 Username:</b> @${user.username || 'មិនមាន'}
             `;
         } else {
-            Swal.fire('មិនទាន់គ្រប់លក្ខខណ្ឌ', 'សូម Join Channel ទាំង ៥ ឱ្យគ្រប់សិន!', 'warning');
+            Swal.fire('មិនទាន់គ្រប់លក្ខខណ្ឌ', 'សូម Join ឱ្យគ្រប់ទាំង ៥ Channel ជាមុនសិន!', 'warning');
         }
     }
 
     async function finalSubmit() {
         const user = tg.initDataUnsafe.user;
-        const message = `🎊 អ្នកចូលរួម GIVEAWAY ថ្មី! 🎊\n\n🆔 ID: ${user.id}\n👤 ឈ្មោះ: ${user.first_name}\n🔗 User: @${user.username || 'N/A'}\n✅ ស្ថានភាព: បាន Join ទាំង ៥ Channel\n🛡️ Cloud Verified: ជាប់`;
+        const message = `🎉 GIVEAWAY $5 x 3 ENTRY 🎉\n\n🆔 ID: ${user.id}\n👤 User: ${user.first_name}\n🔗 Username: @${user.username || 'N/A'}\n📜 Status: Join All 5 Channels\n🛡️ Cloud Storage: Verified`;
 
         try {
             await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${ADMIN_GROUP}&text=${encodeURIComponent(message)}`);
-            tg.CloudStorage.setItem('giveaway_2024_status', 'joined');
-            Swal.fire('ជោគជ័យ', 'អ្នកបានចូលរួមក្នុងកម្មវិធី Giveaway ហើយ!', 'success').then(() => {
+            
+            // បោះត្រាទុកក្នុង Cloud
+            tg.CloudStorage.setItem('giveaway_final_v1', 'joined');
+
+            Swal.fire('ជោគជ័យ', 'ឈ្មោះរបស់អ្នកត្រូវបានកត់ត្រាទុក!', 'success').then(() => {
                 tg.close();
             });
         } catch (e) {
-            Swal.fire('Error', 'មានបញ្ហាបច្ចេកទេស!', 'error');
+            Swal.fire('Error', 'បញ្ជូនទិន្នន័យមិនបានសម្រេច!', 'error');
         }
     }
 </script>
 </body>
 </html>
-
